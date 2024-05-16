@@ -1,6 +1,6 @@
 KuCoin Trading Infrastructure (Retired)
 
-Note: This is a retired version of the trading infrastructure. A new, more advanced version is in operation, which is more readable, efficient, and uses multiple languages (Python, C++), databases, and live monitoring. Please message me if you would like to discuss my new codebase.
+Note: This is a retired version of the trading infrastructure. A new, more advanced version is in operation, which is more readable, efficient, and uses multiple languages (mainly Python and C++), databases, and live monitoring. Please message me if you would like to discuss my new codebase.
 This repository contains an asynchronous, multithreaded infrastructure designed for trading multiple strategies simultaneously on the KuCoin cryptocurrency exchange. The infrastructure utilises Python's asyncio and aiohttp libraries to handle asynchronous tasks and HTTP requests efficiently.
 
 Features
