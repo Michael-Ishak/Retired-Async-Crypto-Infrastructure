@@ -27,7 +27,6 @@ timeout_settings = aiohttp.ClientTimeout(total=1, connect=1, sock_read=1)
 ########################
 
 def get_headers(resource: str):
-    ### FIGURE OUT A WAY TO CHANGE "now" SO THAT UPDATE_KC_TIMESTAMP ALWAYS WORKS AND "now" GIVES THE RIGHT ANSWER
     now = int(round(time.time(), 0)) * 1000
     str_to_sign = str(now) + 'GET' + resource
     signature = base64.b64encode(

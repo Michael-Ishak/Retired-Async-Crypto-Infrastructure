@@ -49,12 +49,12 @@ async def log_remover(directory: str, prefix_of_filename: str, file_size: int):
         await asyncio.sleep(15)
 
 async def run_lr_thread_2hour_forever(*args, **kwargs) -> None:
-    LR_instance = LRT(name=kwargs.get('name'))
+    LR_instance = Strategy1(name=kwargs.get('name'))
     while True:
         await LR_instance.LR_Trend_2hour(*args, **kwargs)
         await asyncio.sleep(1)
 
-async def _multi_process_run_lr_trend_2hr(weights_LRT: tuple[float], weights_MC_KC: tuple[float]) -> None:
+async def _multi_process_run_lr_trend_2hr(weights_Strategy1: tuple[float], weights_MC_KC: tuple[float]) -> None:
     async with aiohttp.ClientSession() as session:
         coroutines = [
             ### Input your strategy files, I've put activated one stratgy for 4 instruments as an example
@@ -71,17 +71,17 @@ async def _multi_process_run_lr_trend_2hr(weights_LRT: tuple[float], weights_MC_
                 logging.error(f"Exception occurred: {e}")
                 raise e
 
-async def _single_thread_run_lr_thread_2hr(weights_LRT: tuple[float], weights_MC_KC: tuple[float]) -> None:
+async def _single_thread_run_lr_thread_2hr(weights_Strategy1: tuple[float], weights_MC_KC: tuple[float]) -> None:
     async with aiohttp.ClientSession() as session:
         args_set = (
-            ("SOL", "USDT", weights_LRT[0], user, market, trade, session),
-            ("SUKU", "USDT", weights_LRT[1], user, market, trade, session),
-            ("GST", "USDT", weights_LRT[2], user, market, trade, session),
-            ("AVAX", "USDT", weights_LRT[3], user, market, trade, session),
-            ("DOGE", "USDT", weights_LRT[4], user, market, trade, session)
+            ("SOL", "USDT", weights_Strategy1[0], user, market, trade, session),
+            ("SUKU", "USDT", weights_Strategy1[1], user, market, trade, session),
+            ("GST", "USDT", weights_Strategy1[2], user, market, trade, session),
+            ("AVAX", "USDT", weights_Strategy1[3], user, market, trade, session),
+            ("DOGE", "USDT", weights_Strategy1[4], user, market, trade, session)
         )
 
-        LR_instance = LRT(name="Single Worker")
+        LR_instance = Strategy1(name="Single Worker")
         while True:
             for args in args_set:
                 await LR_instance.LR_Trend_2hour(*args)
@@ -98,10 +98,10 @@ def run_lr_trend_2hour(weights: tuple[float], multiprocess_mode: bool = False):
     asyncio.run(fn(weights))
 
 async def main():
-    weights_LRT = weighting([2, 2, 1]) # SOL, SUKU, GST, AVAX, DOGE
+    weights_Strategy1 = weighting([2, 2, 1]) # SOL, SUKU, GST, AVAX, DOGE
     weights_MC_KC = weighting([3, 3, 1]) # ETH, SOL, BTC                    PEPE, AIOZ, SHIB, ICP (5, 4, 2, 2)
     log_remover_task = asyncio.create_task(log_remover('.', 'Live_logging', 10239))
-    lr_trend_task = asyncio.create_task(_multi_process_run_lr_trend_2hr(weights_LRT, weights_MC_KC))
+    lr_trend_task = asyncio.create_task(_multi_process_run_lr_trend_2hr(weights_Strategy1, weights_MC_KC))
 
     await asyncio.gather(log_remover_task, lr_trend_task)
 
