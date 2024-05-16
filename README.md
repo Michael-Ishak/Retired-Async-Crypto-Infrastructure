@@ -11,3 +11,8 @@ Features
 4. Strategy Implementation: Includes implementations of various trading strategies, such as momentum based, trend-following and statistical/mathematical strategies.
 
 This is the remnants of my old code, please feel free to use any part of the code as you'd like!
+
+
+P.S. Some files are missing, such as the send_failed_order file which would send an email about what went wrong to the host if something went wrong. I didn't include this because there was sensitive data within those files. However, templates for these files can be found elsewhere on my github.
+
+If there is anything else you have questions about, feel free to message me!
